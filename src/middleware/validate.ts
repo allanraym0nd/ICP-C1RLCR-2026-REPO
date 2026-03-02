@@ -7,14 +7,14 @@ const EmailJobSchema = z.object({
     to: z.string().email('Invalid Email Address'),
     subject: z.string().min(1, 'Subject is required'),
     template: z.string().min(1, 'Template name is required'),
-    data: z.record(z.any()),
+    data: z.record(z.string(), z.any()),
 
 })
 const SMSJobSchema = z.object({
     channel: z.literal('sms'),
     to: z.string().min(10, 'Invalid phone number'),
     template: z.string().min(1, 'Template name is required'),
-    data: z.record(z.any()),
+    data: z.record(z.string(), z.any()),
 });
 const PushJobSchema = z.object({
     channel: z.literal('push'),
