@@ -1,4 +1,5 @@
 import pool from "./index.js";
+import type { NotificationJob } from "../types/index.js";
 
 export const initDB = async (): Promise<void> => {
     await pool.query(`
@@ -8,7 +9,7 @@ export const initDB = async (): Promise<void> => {
         recipient TEXT NOT NULL,
         status VARCHAR(20) NOT NULL,
         payload JSONB NOT NULL,
-        created_at TIMESTAMPZ DEFAULT_NOW()
+        created_at TIMESTAMPTZ DEFAULT NOW()
         )
      `)
 
@@ -20,9 +21,9 @@ export const initDB = async (): Promise<void> => {
         `)
     console.log('DB initialized');
 }
-export const logNotification = async (channel: string, status: string, payload: Record<string, any>): Promise<void> => {
+export const logNotification = async (channel: string, status: string, payload: NotificationJob): Promise<void> => {
 
-    const recipient = payload.to || payload.token || 'unknown'
+    const recipient = 'to' in payload ? payload.to : 'token' in payload ? payload.token : 'unknown'
     await pool.query(`
         INSERT INTO notification_logs (channel, recipient, status, payload)
         VALUES($1, $2, $3, $4)
