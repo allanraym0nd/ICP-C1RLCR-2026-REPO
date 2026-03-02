@@ -42,7 +42,7 @@ const worker = new Worker<NotificationJob>('notifications',
             throw err;
 
         } finally {
-            await logNotification(channel, job.data, status)
+            await logNotification(channel, status, job.data)
         }
     },
     { connection, concurrency: 5 }
