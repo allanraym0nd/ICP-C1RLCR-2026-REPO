@@ -2,3 +2,4 @@ node_modules
 config
 notification-dispacher-firebase-adminsdk-fbsvc-65d39623e4.json
 .env
+public
