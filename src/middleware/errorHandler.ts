@@ -6,7 +6,7 @@ export class AppError extends Error {
     }
 }
 
-export const errorHandler = (req: Request, res: Response, next: NextFunction, err: Error) => {
+export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(`[Error] ${err.message}`)
 
 
